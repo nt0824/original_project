@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('title', 150)->charset('utf8mb4')->collation('utf8mb4_bin');
             $table->text('content')->charset('utf8mb4')->collation('utf8mb4_bin');
             $table->dateTime('action_date');
-
-
         });
     }
 
