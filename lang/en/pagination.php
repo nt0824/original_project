@@ -15,5 +15,8 @@ return [
 
     'previous' => '&laquo; Previous',
     'next' => 'Next &raquo;',
+    'attributes' => [
+        'content' => '投稿内容'
+    ]
 
 ];
