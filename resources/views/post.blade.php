@@ -3,9 +3,11 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             投稿画面
         </h2>
+        <a href="{{ route('dashboard') }}">戻る</a>
+
     </x-slot>
 
-    <form action="" method="post">
+    <form action="{{ route('create') }}" method="post">
         @csrf
         <div>
         <label for="title">タイトル</label>
@@ -21,14 +23,21 @@
 
         <div>
         <label for="action_date">行動日時</label>
-        <input type="datetime-local" id="action_date" name="action_date">
+        <input type="datetime-local" id="action_date" name="action_date" value="{{ old('action_date') === '' ? '' : old('action_date') }}">
+
         </div>
         
-        @error('content')
-        <p style="color: red;">{{ $message }}</p>
-        @enderror
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+
+                        <li style="color: red;">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <button type="submit">送信</button>
-    </form>
-
-
+    </form>    
 </x-app-layout>
