@@ -30,6 +30,8 @@ class CreateController extends Controller
         $post->save();
 
         // リダイレクトする
-        return redirect()->route('post');
+        //成功メッセージ
+        return redirect()->route('post')->with('success', '投稿に成功しました');
+
     }
 }

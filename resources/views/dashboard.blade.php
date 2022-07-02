@@ -4,14 +4,15 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+    <p>投稿画面</p>
+    <ul>
+       @foreach ($posts as $post)
+       <li>{{ $post->title }}{{ $post->action_date}}
+            <a href="{{ route('editindex',['postId' => $post->id]) }}">< 詳細</a>
+        </li>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
-            </div>
-        </div>
-    </div>
+      @endforeach
+  </ul>
+
 </x-app-layout>
+

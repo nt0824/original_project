@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // モデルの読み込み
 use App\Models\Post;
-
+// 403エラーを出すためのクラスを読み込む
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class DeleteController extends Controller
 {
@@ -23,8 +24,13 @@ class DeleteController extends Controller
         $post = Post::where('id', $postId)->firstOrFail();
         // データの削除
         $post->delete();
+        //成功メッセージ
+        return redirect()->route('index')->with('success', '投稿が完了しました。');
         // リダイレクト
         return redirect()->route('index')->with('success', '投稿を削除しました。');
+        // ログインしているユーザーのIDと投稿IDが一致しなかったら403エラーを出す
+        if (!$this->checkOwnPost($request->user()->id, $postId)) {
+        throw new AccessDeniedHttpException();}
 
     }
 }

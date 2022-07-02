@@ -13,27 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
 
-
 Route::middleware('auth')->group(function() {
-    // Route::get('/posts', \App\Http\Controllers\IndexController::class)->name('index')
-Route::post('/post/create', \App\Http\Controllers\CreateController::class)->name('create');
-    // Route::delete('/posts/delete/{postId}', \App\Http\Controllers\DeleteController::class)->name('delete');
-    // Route::get('/posts/edit/{postId}', \App\Http\Controllers\EditIndexController::class)->name('editindex')->where('postId','[0-9]+');
-    // Route::put('/posts/edit/{postId}', \App\Http\Controllers\EditController::class)->name('edit')->where('postId','[0-9]+');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::post('/post/create', \App\Http\Controllers\CreateController::class)->name('create');
+    Route::delete('/post/delete/{postId}', \App\Http\Controllers\DeleteController::class)->name('delete');
+    Route::get('/post/edit/{postId}', \App\Http\Controllers\EditIndexController::class)->name('editindex')->where('postId','[0-9]+');
+    Route::put('/post/edit/{postId}', \App\Http\Controllers\EditController::class)->name('edit')->where('postId','[0-9]+');
+    Route::get('/post', \App\Http\Controllers\IndexController::class)->name('index');
+
+    Route::get('/dashboard', \App\Http\Controllers\IndexController::class)->name('dashboard');
 
     Route::get('/post', function () {
         return view('post');
@@ -41,6 +34,4 @@ Route::post('/post/create', \App\Http\Controllers\CreateController::class)->name
     
 });
 
-
-require __DIR__.'/auth.php';
 

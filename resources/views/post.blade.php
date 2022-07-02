@@ -39,5 +39,13 @@
             </div>
         @endif
         <button type="submit">送信</button>
-    </form>    
+
+
+
+        @if (session('success'))
+        <p style="color: green;">{{ session('success') }}</p>
+        @endif
+
+
+    </form> 
 </x-app-layout>
