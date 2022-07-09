@@ -26,21 +26,10 @@ class EditController extends Controller
     $post = Post::where('id', $request->postId())->firstOrFail();
     // データを更新
     $post->content = $request->content();
+    $post->title = $request->title();
+    $post->action_date = $request->action_date();
     $post->save();
     // リダイレクト
     return redirect()->route('editindex', ['postId' => $post->id])->with('success', '投稿を更新しました。');
-    // ログインしているユーザーのIDと投稿IDが一致しなかったら403エラーを出す
-    if (!$this->checkOwnPost($request->user()->id, $postId)) {
-    throw new AccessDeniedHttpException();}
     }
-    // ログインしているユーザーのIDと投稿のIDが一致するか確認するメソッド
-     public function checkOwnPost(int $userId, int $postId): bool {
-    $post = Post::where('id', $postId)->first();
-    if (!$post){
-        return false;
-    }
-
-    return $post->user_id === $userId;  
-}
-
 }

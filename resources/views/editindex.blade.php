@@ -1,30 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>投稿フォーム</title>
-</head>
-<body>
-    <a href="{{ route('index') }}">< 戻る</a>
-        <p>投稿フォーム</p>
-        @if (session('success'))
-            <p style="color: green;">{{ session('success') }}</p>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            詳細画面
+        </h2>
+        <a href="{{ route('dashboard') }}">戻る</a>
+
+    </x-slot>
+
+    <form action="{{ route('edit' ,['postId' => $post->id])  }}" method="post">
+        @csrf
+        @method('PUT') 
+        <div>
+        <label for="title">タイトル</label>
+        <p>100字まで</p>
+        <input type="text" id="title" placeholder="タイトルを編集" name="title" value="{{ $post->title}}">
+
+        </div>
+        
+        <div>
+        <label for="content">内容</label>
+        <p>200字まで</p>
+        <textarea name="content" id="content" cols="30" rows="10" placeholder="内容を編集">{{ $post->content}}</textarea>
+
+        </div>
+
+        <div>
+        <label for="action_date">行動日時</label>
+        <input type="datetime-local" id="action_date" name="action_date" value="{{ $post->action_date}}">
+
+        </div>
+        
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+
+                        <li style="color: red;">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
-            <form action="{{ route('edit' ,['postId' => $post->id])  }}"
-            method="post">
-            @csrf
-            @method('PUT') 
-            <label for="content">投稿</label>
-            <span>140字まで</span>       
-            <textarea id="content" name="content" placeholder="投稿内容を入力">{{ $post->content }}</textarea>
-            @error('content')
-            <p style="color: red;">{{ $message }}</p>
-            @enderror
-            <button type="submit">更新</button>
-            </form>
-            
-    
-</body>
-</html>
+        <button type="submit">送信</button>
+        {{-- <button type="submit">削除</button> --}}
+
+
+        @if (session('success'))
+        <p style="color: green;">{{ session('success') }}</p>
+        @endif
+
+
+    </form> 
+</x-app-layout>

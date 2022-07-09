@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class EditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -44,12 +44,9 @@ class CreateRequest extends FormRequest
         return $this->input('action_date');
     }
 
-    public function userId(): int
+    public function postId(): int
     {
-        return $this->user()->id;
+        return (int)  $this->route('postId');
     }
-
-
-
 
 }
