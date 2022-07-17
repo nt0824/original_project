@@ -42,7 +42,6 @@
             </div>
         @endif
         <button type="submit">送信</button>
-        {{-- <button type="submit">削除</button> --}}
 
 
         @if (session('success'))
@@ -51,4 +50,16 @@
 
 
     </form> 
+
+    <form action="{{ route('delete', ['postId' => $post->id]) }}" method="post">
+        @csrf
+        @method('DELETE')
+        <button type="submit">削除</button>
+        @if (session('success'))
+        <p style="color: green;">{{ session('success') }}</p>
+        @endif
+
+        
+    </form>
+
 </x-app-layout>

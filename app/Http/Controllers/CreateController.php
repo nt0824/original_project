@@ -26,12 +26,8 @@ class CreateController extends Controller
         $post->content = $request->content;
         $post->title = $request->title;
         $post->action_date = $request->action_date;
-        // ユーザーのIDの取得
-        $post->user_id = $request->userId();
         // データの保存
         $post->save();
-
-        // リダイレクトする
         //成功メッセージ
         return redirect()->route('post')->with('success', '投稿に成功しました');
 
