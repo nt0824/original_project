@@ -24,13 +24,8 @@ class DeleteController extends Controller
         $post = Post::where('id', $postId)->firstOrFail();
         // データの削除
         $post->delete();
-        //成功メッセージ
-        return redirect()->route('index')->with('success', '投稿が完了しました。');
         // リダイレクト
-        return redirect()->route('index')->with('success', '投稿を削除しました。');
-        // ログインしているユーザーのIDと投稿IDが一致しなかったら403エラーを出す
-        if (!$this->checkOwnPost($request->user()->id, $postId)) {
-        throw new AccessDeniedHttpException();}
+        return redirect()->route('dashboard')->with('success', '投稿を削除しました。');
 
     }
 }
